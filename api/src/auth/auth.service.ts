@@ -12,12 +12,12 @@ export class AuthService {
   }
   async signIn(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ user: User }> {
+  ): Promise<Omit<User, 'password'>> {
     const { fullName, password } = authCredentialsDto;
     const user = await this.userRepository.findOne({ where: { fullName } });
 
     if (user && password === user.password) {
-      return { user };
+      return { id: user.id, fullName: user.fullName };
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }

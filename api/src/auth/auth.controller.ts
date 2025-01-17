@@ -15,7 +15,7 @@ export class AuthController {
   @Post('/signin')
   signIn(
     @Body() authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ user: User }> {
+  ): Promise<Omit<User, 'password'>> {
     return this.authSevice.signIn(authCredentialsDto);
   }
 }
